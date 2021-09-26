@@ -30,7 +30,8 @@
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^5.0",
         "phpunit/phpunit": "^9.3.3",
-        "summerblue/generator": "8.*"
+        "summerblue/generator": "8.*",
+        "viacreative/sudo-su": "~1.1"
     },
     "autoload": {
         "psr-4": {
