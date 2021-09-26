@@ -12,7 +12,7 @@ class ReplyObserver
 {
     public function created(Reply $reply)
     {
-        $reply->topic->reply_count = $reply->topic->replies->count();
+        $reply->topic->updateReplyCount();
         $reply->topic->save();
 
         // 通知话题作者有新的评论
@@ -30,5 +30,10 @@ class ReplyObserver
     public function updating(Reply $reply)
     {
         //
+    }
+
+    public function deleted(Reply $reply)
+    {
+        $reply->topic->updateReplyCount();
     }
 }

@@ -18,5 +18,6 @@ class Policy
 	    // if ($user->isSuperAdmin()) {
 	    // 		return true;
 	    // }
+
 	}
 }
