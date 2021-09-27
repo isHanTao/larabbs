@@ -39,6 +39,8 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             // 必须验证邮箱
             \App\Http\Middleware\EnsureEmailIsVerified::class,
+            // 纪律最后访问时间
+            \App\Http\Middleware\RecordLastActivedTime::class,
         ],
 
         'api' => [
