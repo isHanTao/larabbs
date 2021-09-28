@@ -17,4 +17,10 @@ class ReplyPolicy extends Policy
     {
         return $user->isAuthorOf($reply) || $user->isAuthorOf($reply->topic);
     }
+
+    public function view()
+    {
+        return true;
+    }
+
 }

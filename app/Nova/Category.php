@@ -3,31 +3,24 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\Date;
-use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Topic extends Resource
+class Category extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\Models\Topic::class;
+    public static $model = \App\Models\Category::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'title';
-
-    public static $group = '内容管理';
+    public static $title = 'id';
 
     /**
      * The columns that should be searched.
@@ -37,6 +30,9 @@ class Topic extends Resource
     public static $search = [
         'id',
     ];
+
+    public static $group = '内容管理';
+
 
     /**
      * Get the fields displayed by the resource.
@@ -48,13 +44,6 @@ class Topic extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            Text::make('标题','title'),
-            Text::make('简介','excerpt')->onlyOnDetail(),
-            Text::make('回复数量','reply_count')->exceptOnForms(),
-            Trix::make('内容','body'),
-            HasMany::make('replies'),
-            BelongsTo::make('User'),
-            Date::make('创作时间','created_at')->exceptOnForms(),
         ];
     }
 

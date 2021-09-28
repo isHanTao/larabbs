@@ -12,6 +12,10 @@ class ImageUploadHandler
 
     public function save($file, $folder, $file_prefix, $max_width = false)
     {
+        $res = [
+            'size' => $file->getSize(),
+            'name'=>$file->getClientOriginalName()
+        ];
         // 构建存储的文件夹规则，值如：uploads/images/avatars/201709/21/
         // 文件夹切割能让查找效率更高。
         $folder_name = "uploads/images/$folder/" . date("Ym/d", time());
@@ -41,10 +45,8 @@ class ImageUploadHandler
             // 此类中封装的函数，用于裁剪图片
             $this->reduceSize($upload_path . '/' . $filename, $max_width);
         }
-
-        return [
-            'path' => config('app.url') . "/$folder_name/$filename"
-        ];
+        $res['path'] = "/$folder_name/$filename";
+        return $res;
     }
 
     public function reduceSize($file_path, $max_width)

@@ -52,6 +52,11 @@
                   <i class="fas fa-tachometer-alt mr-2"></i>
                   管理后台
                 </a>
+
+                <a class="dropdown-item" href="/nova">
+                  <i class="fas fa-tachometer-alt mr-2"></i>
+                  Nova 管理后台
+                </a>
                 <div class="dropdown-divider"></div>
               @endcan
               <a class="dropdown-item" href="{{ route('users.show', Auth::id()) }}">

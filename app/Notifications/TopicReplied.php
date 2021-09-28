@@ -7,6 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use App\Models\Reply;
+use Illuminate\Support\Facades\Log;
 
 class TopicReplied extends Notification implements ShouldQueue
 {
@@ -46,6 +47,7 @@ class TopicReplied extends Notification implements ShouldQueue
 
     public function toMail($notifiable)
     {
+        Log::info('发送邮件');
         $url = $this->reply->topic->link(['#reply' . $this->reply->id]);
 
         return (new MailMessage)

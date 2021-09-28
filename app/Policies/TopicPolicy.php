@@ -9,12 +9,17 @@ class TopicPolicy extends Policy
 {
     public function update(User $user, Topic $topic)
     {
-         return $topic->user_id == $user->id;
+         return $topic->user_id == $user->id || $user->can('manage_contents');
 //        return true;
     }
 
     public function destroy(User $user, Topic $topic)
     {
-        return $topic->user_id == $user->id;
+        return $topic->user_id == $user->id || $user->can('manage_contents');
     }
+    public function view()
+    {
+        return true;
+    }
+
 }
