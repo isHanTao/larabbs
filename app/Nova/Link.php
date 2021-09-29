@@ -3,7 +3,9 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Link extends Resource
@@ -20,7 +22,7 @@ class Link extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'title';
 
     /**
      * The columns that should be searched.
@@ -28,10 +30,15 @@ class Link extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id','title','link'
     ];
 
-    public static $group = '网站管理';
+    public static function label()
+    {
+        return '推荐';
+    }
+
+    public static $group = '内容管理';
 
 
     /**
@@ -44,6 +51,9 @@ class Link extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
+            Text::make('标题','title'),
+            Text::make('链接','link'),
+            Date::make('创建时间','created_at')->exceptOnForms()
         ];
     }
 

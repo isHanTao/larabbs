@@ -3,7 +3,9 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Category extends Resource
@@ -20,7 +22,7 @@ class Category extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'name';
 
     /**
      * The columns that should be searched.
@@ -28,10 +30,15 @@ class Category extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id','name','description'
     ];
 
     public static $group = '内容管理';
+
+    public static function label()
+    {
+        return '分类';
+    }
 
 
     /**
@@ -44,7 +51,15 @@ class Category extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
+            Text::make('名称','name'),
+            Text::make('描述','description'),
+            HasMany::make('话题','topics','App\Nova\Topic')
         ];
+    }
+
+    public function subtitle()
+    {
+        return "描述: {$this->description}";
     }
 
     /**

@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Nova;
+namespace App\Nova\Other;
 
+use App\Nova\Resource;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest;
-use Symfony\Component\VarDumper\Cloner\Data;
 
 class Role extends Resource
 {
@@ -23,7 +22,7 @@ class Role extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'name';
 
     public static $group = '用户与权限';
 
@@ -33,7 +32,7 @@ class Role extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id','name'
     ];
 
     /**

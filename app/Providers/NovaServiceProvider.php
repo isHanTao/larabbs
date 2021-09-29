@@ -7,6 +7,9 @@ use App\Nova\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 use Laravel\Nova\Cards\Help;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
 
@@ -21,6 +24,20 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function boot()
     {
         parent::boot();
+        \OptimistDigital\NovaSettings\NovaSettings::addSettingsFields([
+            Text::make('站点名称', 'title')->updateRules([
+                'required', 'max:20'
+            ]),
+            Text::make('联系邮箱', 'email')->updateRules([
+                'required', 'email'
+            ]),
+            Textarea::make('SEO-description', 'seo_description')->updateRules([
+                'required', 'max:255'
+            ]),
+            Textarea::make('SEO-keywords','seo_keywords')->updateRules([
+                'required', 'max:255'
+            ]),
+        ]);
     }
 
     /**
@@ -60,7 +77,6 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function cards()
     {
         return [
-            new Help,
         ];
     }
 
@@ -81,7 +97,10 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     public function tools()
     {
-        return [];
+        return [
+            \Vyuldashev\NovaPermission\NovaPermissionTool::make(),
+            new \OptimistDigital\NovaSettings\NovaSettings
+        ];
     }
 
     /**

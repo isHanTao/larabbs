@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Auth\MustVerifyEmail as MustVerifyEmailTrait;
@@ -67,17 +69,11 @@ class User extends Authenticatable implements MustVerifyEmailContract
         $this->attributes['password'] = $value;
     }
 
-//    public function setAvatarAttribute($path)
-//    {
-        // 如果不是 `http` 子串开头，那就是从后台上传的，需要补全 URL
-//        if ( ! Str::startsWith($path, 'http')) {
-//
-//            // 拼接完整的 URL
-//            $path = config('app.url') . "/uploads/images/avatars/$path";
-//        }
-//
-//        $this->attributes['avatar'] = $path;
-//    }
+    public function setAvatarAttribute($path)
+    {
+        $path = str_replace('/storage','',$path);
+        $this->attributes['avatar'] = $path;
+    }
 
     public function topics(){
         return $this->hasMany(Topic::class);

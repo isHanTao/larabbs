@@ -2,7 +2,10 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
@@ -11,17 +14,20 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "intervention/image": "^2.6",
         "laravel/framework": "^8.54",
+        "laravel/nova": "3.14.0",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "mews/captcha": "^3.2",
         "mews/purifier": "~3.3",
+        "optimistdigital/nova-settings": "^3.2",
         "overtrue/laravel-lang": "~4.0",
         "overtrue/pinyin": "~4.0",
         "predis/predis": "~1.1",
         "spatie/laravel-permission": "~3.0",
         "summerblue/administrator": "^8.0",
         "summerblue/laravel-active": "8.*",
-        "laravel/nova": "3.14.0"
+        "vyuldashev/nova-permission": "^2.11",
+        "hant/simple": "*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "~3.5",
@@ -81,7 +87,14 @@
         {
             "type": "gitlab",
             "url": "https://git.papamk.com/public-project/nova"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/Simple"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/Simple"
         }
     ]
-
 }

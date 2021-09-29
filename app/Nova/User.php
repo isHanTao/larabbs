@@ -4,14 +4,19 @@ namespace App\Nova;
 
 use App\Handlers\ImageUploadHandler;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Laravel\Nova\Fields\Avatar;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Date;
-use Laravel\Nova\Fields\Gravatar;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\MorphToMany;
 use Laravel\Nova\Fields\Password;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
+use Spatie\Permission\Models\Role;
+
 
 class User extends Resource
 {
@@ -35,13 +40,19 @@ class User extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name', 'email',
+        'id', 'name', 'email','introduction'
     ];
+
+    public static function label()
+    {
+        return '用户';
+    }
+
 
     public static $with = ['roles'];
 
 
-    public static $group = '用户与权限';
+    public static $group = '角色及权限';
 
     /**
      * Get the fields displayed by the resource.
@@ -55,7 +66,7 @@ class User extends Resource
 
         return [
             ID::make()->sortable(),
-            Image::make('头像','avatar')->store(function (Request $request, $model) use ($uploader) {
+            Avatar::make('头像','avatar')->store(function (Request $request, $model) use ($uploader) {
                 $result = $uploader->save($request->avatar, 'avatars', $model->id, 416);
                 return [
                     'avatar' => $result['path'],
@@ -65,21 +76,32 @@ class User extends Resource
             Text::make('姓名','name')
                 ->sortable()
                 ->rules('required', 'max:255'),
-            HasMany::make('roles'),
             Text::make('邮箱','email')
                 ->sortable()
                 ->rules('required', 'email', 'max:254')
                 ->creationRules('unique:users,email')
                 ->updateRules('unique:users,email,{{resourceId}}'),
 
-            Text::make('简介','introduction'),
+            Text::make('注册时间','created_at',function ($time){
+                return $time->format('Y-m-d H:i:s');
+            })->exceptOnForms(),
 
-            Date::make('激活时间','email_verified_at')->exceptOnForms(),
+            Text::make('角色','roles')->resolveUsing(function ($roles) {
+                return implode(Arr::pluck($roles,'name'),',');
+            })->exceptOnForms(),
+
+            Text::make('操作','id', function ($id) {
+                return "<a class='btn btn-primary btn-default' target='_blank' href='/users/$id' style='font-size: 12px'>详情</a>";
+            })->exceptOnForms()->asHtml(),
+
+            HasMany::make('话题','topics','App\Nova\Topic'),
+
 
             Password::make('Password')
                 ->onlyOnForms()
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
+            MorphToMany::make('角色', 'roles', \Vyuldashev\NovaPermission\Role::class),
         ];
     }
 
@@ -104,7 +126,7 @@ class User extends Resource
      */
     public function filters(Request $request)
     {
-        return [];
+        return [new Filters\UserType];
     }
 
     /**
@@ -126,6 +148,9 @@ class User extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+//            (new Actions\ShowUserInfo)->onlyOnTableRow(),
+//            (new Actions\EmailAccountProfile())->onlyOnTableRow()->standalone(),
+        ];
     }
 }

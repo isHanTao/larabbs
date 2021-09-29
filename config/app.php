@@ -80,7 +80,7 @@ return [
     |
     */
 
-    'locale' => 'zh_CN',
+    'locale' => 'zh-CN',
 
     /*
     |--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'zh-CN',
 
     /*
     |--------------------------------------------------------------------------
@@ -177,7 +177,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        App\Providers\NovaServiceProvider::class
+        App\Providers\NovaServiceProvider::class,
+        Hant\Simple\ThemeServiceProvider::class
 
     ],
 

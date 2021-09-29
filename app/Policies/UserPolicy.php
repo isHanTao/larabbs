@@ -21,12 +21,32 @@ class UserPolicy
 
     public function update(User $currentUser, User $user)
     {
-        return $currentUser->id === $user->id ||  $currentUser->can('manage_contents');
+        return ($currentUser->id == $user->id) || (!$user->hasRole('Founder') &&  $currentUser->can('manage_users'));
     }
 
     public function view()
     {
         return true;
+    }
+
+    public function viewAny()
+    {
+        return true;
+    }
+
+    public function create(User $currentUser){
+        return $currentUser->can('manage_users');
+    }
+
+    public function delete(User $currentUser, User $user){
+        return  !$user->hasRole('Founder') && $currentUser->can('manage_users');
+    }
+
+    public function restore(User $currentUser){
+        return $currentUser->can('manage_users');
+    }
+    public function forceDelete(User $currentUser){
+        return $currentUser->can('manage_users');
     }
 
 }

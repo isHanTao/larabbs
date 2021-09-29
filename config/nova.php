@@ -103,6 +103,7 @@ return [
         DispatchServingNovaEvent::class,
         BootTools::class,
         Authorize::class,
+        \Vyuldashev\NovaPermission\ForgetCachedPermissions::class,
     ],
 
     /*
@@ -116,7 +117,7 @@ return [
     |
     */
 
-    'pagination' => 'simple',
+    'pagination' => 'links',
 
     /*
     |--------------------------------------------------------------------------

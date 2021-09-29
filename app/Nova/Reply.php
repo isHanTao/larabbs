@@ -24,7 +24,7 @@ class Reply extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'content';
 
     /**
      * The columns that should be searched.
@@ -32,8 +32,13 @@ class Reply extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id','content'
     ];
+
+    public static function label()
+    {
+        return '回复';
+    }
 
     public static $group = '内容管理';
 
@@ -54,8 +59,8 @@ class Reply extends Resource
                 return make_excerpt($content,50);
             })->onlyOnIndex(),
             Date::make('回复时间','created_at')->exceptOnForms(),
-            BelongsTo::make('User'),
-            BelongsTo::make('Topic')
+            BelongsTo::make('回复人', 'user', 'App\Nova\User')->searchable(),
+            BelongsTo::make('话题', 'topic', 'App\Nova\Topic')->searchable()
 
         ];
     }

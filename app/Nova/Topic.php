@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Filters\TopicType;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Date;
@@ -29,13 +30,18 @@ class Topic extends Resource
 
     public static $group = '内容管理';
 
+    public static function label()
+    {
+        return '话题';
+    }
+
     /**
      * The columns that should be searched.
      *
      * @var array
      */
     public static $search = [
-        'id',
+        'id','excerpt','title','body'
     ];
 
     /**
@@ -50,11 +56,13 @@ class Topic extends Resource
             ID::make(__('ID'), 'id')->sortable(),
             Text::make('标题','title'),
             Text::make('简介','excerpt')->onlyOnDetail(),
+            BelongsTo::make('作者','user','App\Nova\User'),
+            BelongsTo::make('分类','category','App\Nova\Category'),
             Text::make('回复数量','reply_count')->exceptOnForms(),
-            Trix::make('内容','body'),
+            Trix::make('内容','body')
+                ->withFiles('public', "/uploads/images/topics/" . date("Ym/d", time()).'/'),
             HasMany::make('replies'),
-            BelongsTo::make('User'),
-            Date::make('创作时间','created_at')->exceptOnForms(),
+            Date::make('创作时间','created_at')->exceptOnForms()
         ];
     }
 
@@ -69,6 +77,11 @@ class Topic extends Resource
         return [];
     }
 
+    public function subtitle()
+    {
+        return "Author: {$this->user->name}";
+    }
+
     /**
      * Get the filters available for the resource.
      *
@@ -77,7 +90,7 @@ class Topic extends Resource
      */
     public function filters(Request $request)
     {
-        return [];
+        return [new TopicType()];
     }
 
     /**

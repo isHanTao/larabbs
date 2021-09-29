@@ -23,12 +23,15 @@ class UserFactory extends Factory
     public function definition()
     {
         $avatars = [
-            'https://cdn.learnku.com/uploads/images/201710/14/1/s5ehp11z6s.png',
-            'https://cdn.learnku.com/uploads/images/201710/14/1/Lhd1SHqu86.png',
-            'https://cdn.learnku.com/uploads/images/201710/14/1/LOnMrqbHJn.png',
-            'https://cdn.learnku.com/uploads/images/201710/14/1/xAuDMxteQy.png',
-            'https://cdn.learnku.com/uploads/images/201710/14/1/ZqM7iaP4CR.png',
-            'https://cdn.learnku.com/uploads/images/201710/14/1/NDnzMutoxX.png',
+            'uploads/images/avatars/202109/29/1_1632886686_J0lYwxT6SK.jpeg',
+            'uploads/images/avatars/202109/29/1_1632887997_u3oe7JyguF.jpeg',
+            'uploads/images/avatars/202109/29/1_1632893469_l4pQd4TCNm.jpeg',
+            'uploads/images/avatars/202109/29/1_1632893526_7FOaX28ywJ.jpeg',
+            'uploads/images/avatars/202109/29/1_1632893534_6MejtMEDi3.jpeg',
+            'uploads/images/avatars/202109/29/1_1632893578_NUO3zgmwPS.jpeg',
+            'uploads/images/avatars/202109/29/1_1632893629_MxeONHW1Cu.jpeg',
+            'uploads/images/avatars/202109/29/1_1632893828_cD288GZQCC.jpeg',
+            'uploads/images/avatars/202109/29/1_1632893867_6c6GnwPB1n.jpeg'
         ];
 
         return [

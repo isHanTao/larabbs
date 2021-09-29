@@ -39,10 +39,9 @@
 
               @if($user->avatar)
                 <br>
-                <img class="thumbnail img-responsive" src="{{ $user->avatar }}" width="200" />
+                <img class="thumbnail img-responsive" src="{{ \Illuminate\Support\Facades\Storage::url($user->avatar) }}" width="200" />
               @endif
             </div>
-
             <div class="well well-sm">
               <button type="submit" class="btn btn-primary">保存</button>
             </div>

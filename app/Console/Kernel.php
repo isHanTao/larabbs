@@ -5,6 +5,7 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Facades\Log;
+use Laravel\Nova\Trix\PruneStaleAttachments;
 
 class Kernel extends ConsoleKernel
 {
@@ -30,6 +31,10 @@ class Kernel extends ConsoleKernel
         $schedule->command('larabbs:calculate-active-user')->hourly();
         // 每日零时执行一次
         $schedule->command('larabbs:sync-user-actived-at')->dailyAt('00:00');
+
+        $schedule->call(function () {
+            (new PruneStaleAttachments)();
+        })->daily();
     }
 
     /**

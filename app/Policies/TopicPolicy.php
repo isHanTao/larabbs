@@ -21,5 +21,7 @@ class TopicPolicy extends Policy
     {
         return true;
     }
-
+    public function create(){
+        return true;
+    }
 }
