@@ -30,6 +30,10 @@ class Topic extends Resource
 
     public static $group = '内容管理';
 
+    public static $searchRelations = [
+        'user' => ['name', 'email'],'category'=>['name']
+    ];
+
     public static function label()
     {
         return '话题';
@@ -54,15 +58,19 @@ class Topic extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            Text::make('标题','title'),
+            Text::make('标题','title')->sortable(),
             Text::make('简介','excerpt')->onlyOnDetail(),
-            BelongsTo::make('作者','user','App\Nova\User'),
-            BelongsTo::make('分类','category','App\Nova\Category'),
-            Text::make('回复数量','reply_count')->exceptOnForms(),
+            BelongsTo::make('作者','user','App\Nova\User')->sortable(),
+            BelongsTo::make('分类','category','App\Nova\Category')->sortable(),
+            Text::make('回复数量','reply_count')->sortable()->exceptOnForms(),
             Trix::make('内容','body')
                 ->withFiles('public', "/uploads/images/topics/" . date("Ym/d", time()).'/'),
+
             HasMany::make('replies'),
-            Date::make('创作时间','created_at')->exceptOnForms()
+            Date::make('创作时间','created_at')->sortable()->exceptOnForms(),
+            Text::make('操作','id', function ($id) {
+                return "<a class='btn btn-primary btn-default' target='_blank' href='/topics/$id' style='font-size: 12px'>详情</a>";
+            })->exceptOnForms()->asHtml(),
         ];
     }
 

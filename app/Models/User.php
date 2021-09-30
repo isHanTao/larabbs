@@ -35,7 +35,8 @@ class User extends Authenticatable implements MustVerifyEmailContract
         'email',
         'password',
         'introduction',
-        'avatar'
+        'avatar',
+        'created_at'
     ];
 
     /**
@@ -107,5 +108,10 @@ class User extends Authenticatable implements MustVerifyEmailContract
 
     public function isAuthorOf($to){
         return $to->user_id == $this->id;
+    }
+
+    public function hasNovaPermission()
+    {
+        return $this->hasAnyPermission([1,2,3]);
     }
 }

@@ -10,8 +10,11 @@
     "require": {
         "php": "^7.3|^8.0",
         "ext-json": "*",
+        "acme/analytics": "*",
+        "coroowicaksono/chart-js-integration": "^0.3.5",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "hant/simple": "*",
         "intervention/image": "^2.6",
         "laravel/framework": "^8.54",
         "laravel/nova": "3.14.0",
@@ -26,8 +29,8 @@
         "spatie/laravel-permission": "~3.0",
         "summerblue/administrator": "^8.0",
         "summerblue/laravel-active": "8.*",
-        "vyuldashev/nova-permission": "^2.11",
-        "hant/simple": "*"
+        "titasgailius/search-relations": "^2.0",
+        "vyuldashev/nova-permission": "^2.11"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "~3.5",
@@ -95,6 +98,14 @@
         {
             "type": "path",
             "url": "./nova-components/Simple"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/Analytics"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/Analytics"
         }
     ]
 }

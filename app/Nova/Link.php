@@ -51,9 +51,15 @@ class Link extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            Text::make('标题','title'),
-            Text::make('链接','link'),
-            Date::make('创建时间','created_at')->exceptOnForms()
+            Text::make('标题','title')->rules([
+                'required', 'max:255'
+            ])->sortable(),
+            Text::make('链接','link')->rules([
+                'required', 'url'
+            ])->sortable(),
+            Text::make('创建时间','created_at',function ($time){
+                return $time->format('Y-m-d H:i:s');
+            })->sortable()->exceptOnForms(),
         ];
     }
 

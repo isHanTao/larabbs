@@ -2,16 +2,23 @@
 
 namespace App\Providers;
 
-use App\Nova\Topic;
-use App\Nova\User;
+
+use App\Models\User;
+use App\Nova\Metrics\TopicCount;
+use App\Nova\Metrics\UsersCount;
+use App\Nova\Statistics\Statistic;
+use App\Nova\Statistics\UserStatistic;
+use App\Policies\PermissionPolicy;
+use App\Policies\RolePolicy;
+use Coroowicaksono\ChartJsIntegration\LineChart;
+use Coroowicaksono\ChartJsIntegration\StackedChart;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Log;
-use Laravel\Nova\Cards\Help;
-use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
+use OptimistDigital\NovaSettings\NovaSettings;
 
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
@@ -62,10 +69,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     protected function gate()
     {
-        Gate::define('viewNova', function ($user) {
-            return in_array($user->email, [
-                //
-            ]);
+        Gate::define('viewNova', function (User $user) {
+            return $user->hasNovaPermission();
         });
     }
 
@@ -77,6 +82,11 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function cards()
     {
         return [
+//            (new Analytics)->currentVisitors(),
+            new UsersCount,
+            Statistic::getUserStatistic(),
+            new TopicCount,
+            Statistic::getTopicStatistic(),
         ];
     }
 
@@ -98,8 +108,11 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function tools()
     {
         return [
-            \Vyuldashev\NovaPermission\NovaPermissionTool::make(),
-            new \OptimistDigital\NovaSettings\NovaSettings
+            \Vyuldashev\NovaPermission\NovaPermissionTool::make()->rolePolicy(RolePolicy::class)
+                ->permissionPolicy(PermissionPolicy::class),
+            NovaSettings::make()->canSee(function(){
+                return Auth::user()->can('edit_settings');
+            }),
         ];
     }
 

@@ -53,3 +53,13 @@ function model_plural_name($model)
     // 获取子串的复数形式，例如：传参 `user` 会得到 `users`
     return Str::plural($snake_case_name);
 }
+
+/**
+ * @param $start integer 开始时间
+ * @param $end integer 结束时间
+ * @return false|string
+ * @throws Exception
+ */
+function getRandomTime(int $start, int $end){
+    return date('Y-m-d',strtotime(random_int($start,$end).' days'));
+}

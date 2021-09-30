@@ -21,7 +21,7 @@ class CategoryPolicy
 
     public function update(User $currentUser)
     {
-        return $currentUser->can('manage_users');
+        return $currentUser->can('manage_contents');
     }
 
     public function view()

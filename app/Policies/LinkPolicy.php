@@ -3,9 +3,10 @@
 namespace App\Policies;
 
 use App\Models\User;
+use App\Nova\Link;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class UserPolicy
+class LinkPolicy
 {
     use HandlesAuthorization;
 
@@ -19,9 +20,9 @@ class UserPolicy
         //
     }
 
-    public function update(User $currentUser, User $user)
+    public function update(User $currentUser)
     {
-        return ($currentUser->id == $user->id) || (!$user->hasRole('Founder') &&  $currentUser->can('manage_users'));
+        return  $currentUser->can('edit_settings');
     }
 
     public function view()
@@ -31,22 +32,22 @@ class UserPolicy
 
     public function viewAny(User $currentUser)
     {
-        return $currentUser->can('manage_users');
+        return  $currentUser->can('edit_settings');
     }
 
     public function create(User $currentUser){
-        return $currentUser->can('manage_users');
+        return  $currentUser->can('edit_settings');
     }
 
-    public function delete(User $currentUser, User $user){
-        return  $user->id != 1 && $currentUser->can('manage_users');
+    public function delete(User $currentUser){
+        return  $currentUser->can('edit_settings');
     }
 
     public function restore(User $currentUser){
-        return $currentUser->can('manage_users');
+        return  $currentUser->can('edit_settings');
     }
     public function forceDelete(User $currentUser){
-        return $currentUser->can('manage_users');
+        return  $currentUser->can('edit_settings');
     }
 
 }

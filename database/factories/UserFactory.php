@@ -42,6 +42,7 @@ class UserFactory extends Factory
             'remember_token' => Str::random(10),
             'introduction' => $this->faker->sentence(),
             'avatar' => $this->faker->randomElement($avatars),
+            'created_at' => getRandomTime(-14,-2)
         ];
     }
 

@@ -7,6 +7,7 @@ use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -39,6 +40,9 @@ class Reply extends Resource
     {
         return '回复';
     }
+    public static $searchRelations = [
+        'user' => ['name', 'email'], 'topic'=>['title']
+    ];
 
     public static $group = '内容管理';
 
@@ -54,7 +58,7 @@ class Reply extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            Trix::make('回复内容','content'),
+            Textarea::make('回复内容','content'),
             Text::make('回复内容简介','content')->resolveUsing(function ($content) {
                 return make_excerpt($content,50);
             })->onlyOnIndex(),

@@ -6,16 +6,12 @@ use App\Handlers\ImageUploadHandler;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Laravel\Nova\Fields\Avatar;
-use Laravel\Nova\Fields\BelongsToMany;
-use Laravel\Nova\Fields\Date;
-use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\MorphToMany;
 use Laravel\Nova\Fields\Password;
-use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
-use Spatie\Permission\Models\Role;
+use Vyuldashev\NovaPermission\RoleSelect;
 
 
 class User extends Resource
@@ -27,11 +23,7 @@ class User extends Resource
      */
     public static $model = \App\Models\User::class;
 
-    /**
-     * The single value that should be used to represent the resource when being displayed.
-     *
-     * @var string
-     */
+
     public static $title = 'name';
 
     /**
@@ -90,18 +82,20 @@ class User extends Resource
                 return implode(Arr::pluck($roles,'name'),',');
             })->exceptOnForms(),
 
+            HasMany::make('话题','topics',Topic::class)->exceptOnForms(),
+
             Text::make('操作','id', function ($id) {
                 return "<a class='btn btn-primary btn-default' target='_blank' href='/users/$id' style='font-size: 12px'>详情</a>";
             })->exceptOnForms()->asHtml(),
-
-            HasMany::make('话题','topics','App\Nova\Topic'),
 
 
             Password::make('Password')
                 ->onlyOnForms()
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
-            MorphToMany::make('角色', 'roles', \Vyuldashev\NovaPermission\Role::class),
+            RoleSelect::make('角色', 'roles')->onlyOnForms(),
+
+            MorphToMany::make('角色', 'roles', \Vyuldashev\NovaPermission\Role::class)
         ];
     }
 
