@@ -178,7 +178,8 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         App\Providers\NovaServiceProvider::class,
-        Hant\Simple\ThemeServiceProvider::class
+        Hant\Simple\ThemeServiceProvider::class,
+        Iidestiny\LaravelFilesystemOss\OssStorageServiceProvider::class
 
     ],
 

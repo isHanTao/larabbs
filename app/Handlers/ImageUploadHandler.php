@@ -38,12 +38,14 @@ class ImageUploadHandler
         if ($max_width && $extension != 'gif') {
             $file = $this->reduceSize($file->getContent(), $max_width);
         }
-        if (!is_dir(storage_path($folder_name))){
-            mkdir(storage_path($folder_name),0777,true);
-        }
-        Storage::disk('public')->put($folder_name.$filename, $file);
 
-        $res['path'] = '/storage'."$folder_name/$filename";
+        // 如果是本地就需要建文件夹
+//        if (!is_dir(storage_path($folder_name))){
+//            mkdir(storage_path($folder_name),0777,true);
+//        }
+        Storage::put($folder_name.$filename, $file);
+
+        $res['path'] = $folder_name.$filename;
 
 
         return $res;

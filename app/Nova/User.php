@@ -5,6 +5,7 @@ namespace App\Nova;
 use App\Handlers\ImageUploadHandler;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Nova\Fields\Avatar;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
@@ -63,7 +64,7 @@ class User extends Resource
                 return [
                     'avatar' => $result['path'],
                 ];
-            }),
+            })->disk('oss'),
 
             Text::make('姓名','name')
                 ->sortable()

@@ -20,7 +20,7 @@ class PermissionPolicy
         //
     }
 
-    public function update(User $currentUser, Link $link)
+    public function update(User $currentUser)
     {
         return  $currentUser->can('manage_users');
     }
@@ -39,7 +39,7 @@ class PermissionPolicy
         return  $currentUser->can('manage_users');
     }
 
-    public function delete(User $currentUser, User $user){
+    public function delete(User $currentUser){
         return  $currentUser->can('manage_users');
     }
 

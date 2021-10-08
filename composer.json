@@ -15,6 +15,7 @@
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "hant/simple": "*",
+        "iidestiny/laravel-filesystem-oss": "^2.1",
         "intervention/image": "^2.6",
         "laravel/framework": "^8.54",
         "laravel/nova": "3.14.0",

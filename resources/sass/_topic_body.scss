@@ -286,7 +286,9 @@
   }
 
   img {
-    max-width: 100%;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    object-fit: contain;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
   }

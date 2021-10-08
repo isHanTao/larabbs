@@ -64,7 +64,7 @@ class Topic extends Resource
             BelongsTo::make('分类','category','App\Nova\Category')->sortable(),
             Text::make('回复数量','reply_count')->sortable()->exceptOnForms(),
             Trix::make('内容','body')
-                ->withFiles('public', "/uploads/images/topics/" . date("Ym/d", time()).'/'),
+                ->withFiles('oss', "/uploads/images/topics/" . date("Ym/d", time())),
 
             HasMany::make('replies'),
             Date::make('创作时间','created_at')->sortable()->exceptOnForms(),

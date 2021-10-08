@@ -23,15 +23,11 @@ class UserFactory extends Factory
     public function definition()
     {
         $avatars = [
-            'uploads/images/avatars/202109/29/1_1632886686_J0lYwxT6SK.jpeg',
-            'uploads/images/avatars/202109/29/1_1632887997_u3oe7JyguF.jpeg',
-            'uploads/images/avatars/202109/29/1_1632893469_l4pQd4TCNm.jpeg',
-            'uploads/images/avatars/202109/29/1_1632893526_7FOaX28ywJ.jpeg',
-            'uploads/images/avatars/202109/29/1_1632893534_6MejtMEDi3.jpeg',
-            'uploads/images/avatars/202109/29/1_1632893578_NUO3zgmwPS.jpeg',
-            'uploads/images/avatars/202109/29/1_1632893629_MxeONHW1Cu.jpeg',
-            'uploads/images/avatars/202109/29/1_1632893828_cD288GZQCC.jpeg',
-            'uploads/images/avatars/202109/29/1_1632893867_6c6GnwPB1n.jpeg'
+            '/uploads/images/avatars/202110/08/1_1633662910_FfhylzCCKh.jpeg',
+            '/uploads/images/avatars/202110/08/1_1633663018_kNWnmZHqDu.jpeg',
+            '/uploads/images/avatars/202110/08/1_1633663265_QME4Z7sWwr.jpg',
+            '/uploads/images/avatars/202110/08/1_1633663333_0pML8lMf9s.jpg',
+            '/uploads/images/avatars/202110/08/1_1633663363_wMQcA28omC.jpg',
         ];
 
         return [

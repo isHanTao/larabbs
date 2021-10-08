@@ -16467,7 +16467,10 @@ body {
   background-color: #f8f8f8;
 }
 .simditor-body img, .topic-body img {
-  max-width: 100%;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  -o-object-fit: contain;
+     object-fit: contain;
   box-sizing: border-box;
 }
 .simditor-body img, .topic-body img {
@@ -16541,6 +16544,7 @@ body {
 
 .simditor-body img {
   max-width: 100%;
+  max-height: 100%;
 }
 
 .topics-show-page .card {

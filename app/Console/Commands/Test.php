@@ -7,6 +7,7 @@ use App\Nova\Statistics\Statistic;
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class Test extends Command
 {
@@ -41,10 +42,8 @@ class Test extends Command
      */
     public function handle()
     {
-//        $res =  User::query()->selectRaw("count(*) num, DATE_FORMAT(created_at,'%Y-%m-%d') date")
-//            ->groupBy("date")->get()->toArray();
-//        dd($res);
-        dd(Statistic::getTopicStatistic());
+        $exists = Storage::has('/hant/uploads/images/avatars/202110/08/1_1633662763_NK74tcBHxc.jpeg');
+        dd($exists);
     }
     protected function getRandomTime(){
         return date('Y-m-d',strtotime(random_int(-14,-2).' days'));

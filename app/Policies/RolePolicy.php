@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\User;
 use App\Nova\Link;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Spatie\Permission\Models\Role;
 
 class RolePolicy
 {
@@ -20,9 +21,9 @@ class RolePolicy
         //
     }
 
-    public function update(User $currentUser, Link $link)
+    public function update(User $currentUser, Role $role)
     {
-        return  $currentUser->can('manage_users');
+        return  $currentUser->can('manage_users') && $role->id != 1;
     }
 
     public function view()
@@ -39,8 +40,8 @@ class RolePolicy
         return  $currentUser->can('manage_users');
     }
 
-    public function delete(User $currentUser, User $user){
-        return  $currentUser->can('manage_users');
+    public function delete(User $currentUser, Role $role){
+        return  $currentUser->can('manage_users') && $role->id != 1;
     }
 
     public function restore(User $currentUser){
